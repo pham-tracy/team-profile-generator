@@ -89,7 +89,7 @@ const menu = [
 addManager();
 
 // Prompts user questions about the manager
-async function addManager() {
+function addManager() {
   inquirer.prompt(managerQs).then((response) => {
     // constructs new instance of Manager object
     const manager = new Manager(
@@ -107,7 +107,7 @@ async function addManager() {
 }
 
 // Prompts user questions about the Engineer
-async function addEngineer() {
+function addEngineer() {
   inquirer.prompt(engineerQs).then((response) => {
     // constructs new instance of Engineer object
     const engineer = new Engineer(
@@ -125,7 +125,7 @@ async function addEngineer() {
 }
 
 // Prompts user questions about the Intern
-async function addIntern() {
+function addIntern() {
   inquirer.prompt(internQs).then((response) => {
     const intern = new Intern(
       response.internName,
@@ -161,19 +161,6 @@ function menuOptions() {
 // Builds roster based on user inputted data
 function buildRoster() {
   fs.writeFile("./dist/index.html", createHTML(teamRoster), (err) =>
-    err ? console.error(err) : console.log("Team Roster successfully created!")
+    err ? console.error(err) : console.log(teamRoster)
   );
 }
-
-// const createTeamRoster = (teamRoster) => {
-//   const createManager = (Manager) => {
-//     return `
-//     <div class="card-body">
-//     <h5 class="card-title">${Manager.getName()}</h5>
-//     <h6 class="card-subtitle mb-2 text-muted">${Manager.getRole()}</h6>
-//     <h6 class="card-subtitle mb-2 text-muted"> ID: ${Manager.getID()}</h6>
-//     <h6 class="card-subtitle mb-2 text-muted"> Email: <a href="mailto:${Manager.getEmail()}">{Manager.getEmail()}</h6></a>
-//     <h6 class="card-subtitle mb-2 text-muted">Office: ${Manager.getOfficeNumber()}</h6>
-//   </div>`;
-//   };
-// };

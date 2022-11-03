@@ -1,0 +1,35 @@
+header {
+    background-color: blue;
+    height:100px;
+    margin-top:0px;
+    margin-bottom: 50px;
+    padding:20px;
+    color:white;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 34px;
+}
+li {
+    font-size: 28px;
+}
+
+
+.card {
+    margin: auto;
+    padding: auto;
+
+}
+.card-header {
+    border: 5px;
+    background-color: lightskyblue;
+}

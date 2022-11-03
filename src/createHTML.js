@@ -1,24 +1,23 @@
-const Manager = require("../lib/Manager");
-const Engineer = require("../lib/Engineer");
-const Intern = require("../lib/Intern");
-
-function createHTML(cardInfo) {
+function generateHTML(cardInfo) {
   return `<!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>My Team</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css
-">
+      <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"/>
       <link rel="stylesheet" type="text/css" href="./style.css" />
     </head>
     <body>
 
-      <h1>Team Roster</h1>
-      <div class="card" style="width: 18rem;">
+    <header><h1>Team Roster</h1></header>
+  
       
-${JSON.stringify(cardInfo)}
+${cardInfo}
 
       </div>
   </div>
@@ -30,42 +29,85 @@ ${JSON.stringify(cardInfo)}
 }
 
 const createManager = (manager) => {
-  return `<div class="card-body">
-  <h2 class="card-title">${manager.name}</h2>
-
-<h3 class="card-subtitle mb-2 text-muted">Manager Role: ${manager.role}</h3>
-<h3 class="card-subtitle mb-2 text-muted">Employee ID: ${manager.id}</h3>
-
-<h3 class="card-subtitle mb-2 text-muted" ><a href= "mailto:${manager.email}">Email: </h3></a>
-
-<h3 class="card-subtitle mb-2 text-muted">Office Number: ${manager.officeNumber} </h3>`;
+  return `
+  <div class="row row-cols-1 row-cols-md-3 justify-content-center mx-auto">
+  <div class="col mb-4 ">
+<div class="card" style="width: 25rem;">
+  <div class="card-header">
+  <h2> ${manager.name} </h2>
+  <br>
+  <h3> Manager </h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ID: ${manager.id}</li>
+    <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
+    <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
+  </ul>
+</div>
+</div>
+`;
 };
 
 const createEngineer = (engineer) => {
-  return `<div class="card-body">
-  <h2 class="card-title">${engineer.name}Engineer's Name</h2>
-
-<h3 class="card-subtitle mb-2 text-muted">Engineer's Role: ${engineer.role}</h3>
-<h3 class="card-subtitle mb-2 text-muted">Employee ID: ${engineer.id}</h3>
-
-<h3 class="card-subtitle mb-2 text-muted"><a href= "mailto:${engineer.email}">Email: </h3></a>
-
-<h3 class="card-subtitle mb-2 text-muted">GitHub: ${engineer.officeNumber} </h3>`;
+  return `
+  <div class="col mb-4">
+  <div class="card" style="width: 25rem;">
+  <div class="card-header">
+  <h2> ${engineer.name} </h2>
+  <br>
+  <h3> Engineer </h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ID: ${engineer.id}</li>
+    <li class="list-group-item">Email: <a href="mailto:${engineer.email}">${engineer.email}</a></li>
+    <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a></li>
+  </ul>
+</div>
+</div>
+`;
 };
 
 const createIntern = (intern) => {
-  return `<div class="card-body">
-  <h2 class="card-title">${intern.name}Intern's Name</h2>
-
-<h3 class="card-subtitle mb-2 text-muted">Intern Role: ${intern.role}</h3>
-<h3 class="card-subtitle mb-2 text-muted">Employee ID: ${intern.id}</h3>
-
-<h3 class="card-subtitle mb-2 text-muted"><a href= "mailto:${intern.email}">Email: </h3></a>
-
-<h3 class="card-subtitle mb-2 text-muted">School: ${intern.officeNumber} </h3>`;
+  return `
+  <div class="col mb-4">
+<div class="card" style="width: 25rem;">
+  <div class="card-header">
+  <h2> ${intern.name} </h2>
+  <br>
+  <h3> Intern </h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ID: ${intern.id}</li>
+    <li class="list-group-item">Email: <a href= "mailto:${intern.email}">${intern.email} </a></li>
+    <li class="list-group-item">School: ${intern.school}</li>
+  </ul>
+</div>
+</div>
+`;
 };
 
-module.exports = createHTML;
-// module.exports = createManager;
-// module.exports = createEngineer;
-// module.exports = createIntern;
+const createDataInfo = (data) => {
+  employeeInfo = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const employee = data[i];
+    switch (employee.getRole()) {
+      case "Manager":
+        const managerInfo = createManager(employee);
+        employeeInfo.push(managerInfo);
+        break;
+      case "Engineer":
+        const engineerInfo = createEngineer(employee);
+        employeeInfo.push(engineerInfo);
+        break;
+      case "Intern":
+        const internInfo = createIntern(employee);
+        employeeInfo.push(internInfo);
+        break;
+    }
+  }
+
+  return generateHTML(employeeInfo.join(""));
+};
+
+module.exports = createDataInfo;
