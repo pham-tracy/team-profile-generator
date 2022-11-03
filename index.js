@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const createHTML = require("./src/createHTML");
 const teamRoster = [];
 
 // Questions for manager
@@ -106,7 +107,7 @@ async function addManager() {
 }
 
 // Prompts user questions about the Engineer
-function addEngineer() {
+async function addEngineer() {
   inquirer.prompt(engineerQs).then((response) => {
     // constructs new instance of Engineer object
     const engineer = new Engineer(
@@ -124,13 +125,13 @@ function addEngineer() {
 }
 
 // Prompts user questions about the Intern
-function addIntern() {
+async function addIntern() {
   inquirer.prompt(internQs).then((response) => {
     const intern = new Intern(
       response.internName,
       response.internEID,
       response.internEmail,
-      response.school // why is this coming back as undefined?
+      response.internSchool // why is this coming back as undefined?
     );
     // Adds newly created Engineer to the team roster
     teamRoster.push(intern);
@@ -159,49 +160,20 @@ function menuOptions() {
 
 // Builds roster based on user inputted data
 function buildRoster() {
-  fs.writeFile(
-    "./dist/index.html",
-    // change this to add HTML code
-    JSON.stringify(teamRoster),
-
-    (err) => (err ? console.error(err) : console.log(teamRoster))
+  fs.writeFile("./dist/index.html", createHTML(), (err) =>
+    err ? console.error(err) : console.log("Team Roster successfully created!")
   );
 }
 
-// function formatHTML() {
-//   return `<!DOCTYPE html>
-//   <html lang="en">
-//     <head>
-//       <meta charset="UTF-8" />
-//       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//       <title>My Team</title>
-//       <link rel="stylesheet" type="text/css" href="./style.css" />
-//     </head>
-//     <body>
-//       <header>
-//         <h1>Team Roster</h1>
-//       </header>
-
-//       <main>
-//         <section>
-//             <h2></h2>
-//           </header>
-
-//           <div>
-
-//             <h3>${manager.getName()}</h3>
-//             <p>Manager</p>
-//             <p>Employee ID: ${manager.getID()}</p>
-//             <p>Email: <a href= "mailto:: ${manager.getInfo()}">${
-//     manager.email
-//   }</a></p>
-//             <p>Office Number:${manager.getOfficeNumber()}</p>
-
-//           </div>
-
-//         </section>
-//       </main>
-//     </body>
-//   </html>
-//   `;
-// }
+// const createTeamRoster = (teamRoster) => {
+//   const createManager = (Manager) => {
+//     return `
+//     <div class="card-body">
+//     <h5 class="card-title">${Manager.getName()}</h5>
+//     <h6 class="card-subtitle mb-2 text-muted">${Manager.getRole()}</h6>
+//     <h6 class="card-subtitle mb-2 text-muted"> ID: ${Manager.getID()}</h6>
+//     <h6 class="card-subtitle mb-2 text-muted"> Email: <a href="mailto:${Manager.getEmail()}">{Manager.getEmail()}</h6></a>
+//     <h6 class="card-subtitle mb-2 text-muted">Office: ${Manager.getOfficeNumber()}</h6>
+//   </div>`;
+//   };
+// };
