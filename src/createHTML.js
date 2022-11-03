@@ -1,3 +1,4 @@
+// Generates the HTML page that displays the Team Roster
 function generateHTML(cardInfo) {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -17,7 +18,7 @@ function generateHTML(cardInfo) {
     <header><h1>Team Roster</h1></header>
   
       
-${cardInfo}
+    ${cardInfo}
 
       </div>
   </div>
@@ -28,6 +29,7 @@ ${cardInfo}
   `;
 }
 
+// HTML for Manager employee
 const createManager = (manager) => {
   return `
   <div class="row row-cols-1 row-cols-md-3 justify-content-center mx-auto">
@@ -48,6 +50,7 @@ const createManager = (manager) => {
 `;
 };
 
+// HTML for Engineer employees
 const createEngineer = (engineer) => {
   return `
   <div class="col mb-4">
@@ -67,6 +70,7 @@ const createEngineer = (engineer) => {
 `;
 };
 
+// HTML for Intern employees
 const createIntern = (intern) => {
   return `
   <div class="col mb-4">
@@ -86,6 +90,7 @@ const createIntern = (intern) => {
 `;
 };
 
+// Creates individual cards for each employee inputted by the user
 const createDataInfo = (data) => {
   employeeInfo = [];
 
@@ -107,6 +112,7 @@ const createDataInfo = (data) => {
     }
   }
 
+  // Adds user-inputted employee information to main HTML file
   return generateHTML(employeeInfo.join(""));
 };
 
