@@ -160,7 +160,7 @@ function menuOptions() {
 
 // Builds roster based on user inputted data
 function buildRoster() {
-  fs.writeFile("./dist/index.html", createHTML(), (err) =>
+  fs.writeFile("./dist/index.html", createHTML(teamRoster), (err) =>
     err ? console.error(err) : console.log("Team Roster successfully created!")
   );
 }
