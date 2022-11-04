@@ -18,7 +18,7 @@ This application was created with Node.js, JavaScript, HTML, Bootstrap and CSS. 
 
 ## Installation
 
-Clone the repo by running the following in your command-line terminal:
+Clone the repo by running the following in your command-line interface:
 
     git@github.com:pham-tracy/team-profile-generator.git
 
